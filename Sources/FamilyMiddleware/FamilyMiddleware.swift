@@ -106,7 +106,7 @@ public class FamilyMiddleware: Middleware {
     private var provider: FamilyStorage
     
     private var stateChangeCancellable: AnyCancellable?
-    private var familyOperationCancellable: AnyCancellable?
+    private var operationCancellable: AnyCancellable?
 
     public init(provider: FamilyStorage) {
         self.provider = provider
@@ -159,7 +159,7 @@ public class FamilyMiddleware: Middleware {
                 )
                 provider.register(key: id)
             case let .create(name, userId):
-                familyOperationCancellable = provider
+                operationCancellable = provider
                     .create(
                         family: FamilyInfo(
                             displayName: name,
@@ -206,7 +206,7 @@ public class FamilyMiddleware: Middleware {
                 )
                 switch action {
                     case .delete:
-                        familyOperationCancellable = provider
+                        operationCancellable = provider
                             .delete(key: newState.key)
                             .sink { (completion: Subscribers.Completion<FamilyError>) in
                                 var result: String = "success"
@@ -231,7 +231,7 @@ public class FamilyMiddleware: Middleware {
                         params.forEach { key, value in
                             paramDict.updateValue(value, forKey: key.stringValue)
                         }
-                        familyOperationCancellable = provider
+                        operationCancellable = provider
                             .update(key: newState.key, params: paramDict)
                             .sink { (completion: Subscribers.Completion<FamilyError>) in
                                 var result: String = "success"
