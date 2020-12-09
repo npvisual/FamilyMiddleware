@@ -27,13 +27,13 @@ public struct FamilyState: Codable, Equatable {
 
 public struct FamilyInfo: Codable, Equatable {
     public let displayName: String
-    public let members: [String: MemberInfo]?
-    public let carpools: [String: CarpoolInfo]?
+    public let members: [String: MemberInfo]
+    public let carpools: [String: Bool]
 
     public init(
         displayName: String,
-        carpools: [String: CarpoolInfo]? = nil,
-        members: [String: MemberInfo]? = nil
+        members: [String: MemberInfo] = [:],
+        carpools: [String: Bool] = [:]
     )
     {
         self.displayName = displayName
@@ -58,10 +58,6 @@ public enum MemberTypes: String, Codable {
     case guardian
     case child
     case caregiver
-}
-
-public struct CarpoolInfo: Codable, Equatable {
-    public let participant: Bool
 }
 
 // MARK: - ERRORS
