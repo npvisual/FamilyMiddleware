@@ -70,6 +70,7 @@ public enum FamilyError: Error {
     case familyEncodingError
     case familyDataNotFoundError
     case familyCreationError
+    case familyUpdateError
     case familyDeletionError
 }
 
