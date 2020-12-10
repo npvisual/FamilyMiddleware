@@ -27,13 +27,13 @@ public struct FamilyState: Codable, Equatable {
 
 public struct FamilyInfo: Codable, Equatable {
     public let displayName: String
-    public var members: [String: MemberInfo] = [:]
-    public var carpools: [String: Bool] = [:]
+    public var members: [String: MemberInfo]?
+    public var carpools: [String: Bool]?
 
     public init(
         displayName: String,
-        members: [String: MemberInfo],
-        carpools: [String: Bool]
+        members: [String: MemberInfo]? = nil,
+        carpools: [String: Bool]? = nil
     )
     {
         self.displayName = displayName
@@ -160,8 +160,7 @@ public class FamilyMiddleware: Middleware {
                     .create(
                         family: FamilyInfo(
                             displayName: name,
-                            members: [userId: MemberInfo(type: .guardian)],
-                            carpools: [:]
+                            members: [userId: MemberInfo(type: .guardian)]
                         )
                     )
                     .sink { (completion: Subscribers.Completion<FamilyError>) in
